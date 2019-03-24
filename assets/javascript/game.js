@@ -11,9 +11,7 @@ document.onkeyup = function(event)
 {
     userInput = event.key.toUpperCase();
     //get user input, only want A-Z
-    alert("userInput: " + userInput + "\n" +
-        "A-Z? -> " + userInput.match(/[a-z]/i)
-        );
+    var validInput = isValidInput(userInput);
 }
 
 function isValidInput(theInput)
