@@ -4,6 +4,25 @@ div{
     border: 1px solid darkblue;
 }
 
+
+
 /*** CLASS ***/
+
+.rowCenter{
+    margin: 0px auto 0px auto;
+}
+
+.letterBlock{
+    background: #777777;
+    width: 10%;
+    padding: 2px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+
 /*** ID ***/
 
