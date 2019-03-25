@@ -10,19 +10,21 @@ var lettersUsed = "";
 var words = buildWordArray();
 
 // find # of char in longest word, make array that size
-var characterElements = [
-    document.getElementById("charElement00"),
-    document.getElementById("charElement01"),
-    document.getElementById("charElement02"),
-    document.getElementById("charElement03"),
-    document.getElementById("charElement04"),
-    document.getElementById("charElement05"),
-    document.getElementById("charElement06"),
-    document.getElementById("charElement07"),
-    document.getElementById("charElement08"),
+var characterElements = [document.getElementById("charElement00"), 
+    document.getElementById("charElement01"), 
+    document.getElementById("charElement02"), 
+    document.getElementById("charElement03"), 
+    document.getElementById("charElement04"), 
+    document.getElementById("charElement05"), 
+    document.getElementById("charElement06"), 
+    document.getElementById("charElement07"), 
+    document.getElementById("charElement08"), 
     document.getElementById("charElement09")];
 
 var secretWord = getSecretWord(0);
+
+//only want to display letter blocks for number of letters in secretWord
+initializeCharacterElements(secretWord.length);
 
 // number of attempts player has to find word
 // guessCount needs to at least match word length
@@ -71,16 +73,27 @@ document.onkeyup = function(event)
 
             guessCount++;
             numGuessesElement.textContent = guessCount;
+            // will need to test if this is over limit of guesses
 
-
-            /*test the input against the secret word
+            //test the input against the secret word
             for (var j = 0; j < secretWord.length; j++)
             {
                 if(userInput === secretWord[j])
                 {
-                    // put userInput in element 
+                    // put userInput in element
+                    characterElements[j].textContent = userInput;
+
+                    /*console.log("TESTING CHAR ELEMENT ARRAY" + "\n" +
+                                "characterElements[" + j + "] = " + characterElements[j].textContent);*/
                 }
-            }*/
+            }
+
+            // compare characterElements to secretWord
+            // THIS IS NOT WORKING
+            if(hasSecretWordBeenFound())
+            {
+                outputElement += " *** YOU FOUND THE SECRET WORD ***"
+            }
         }
 
     }
@@ -164,6 +177,7 @@ function buildWordArray()
         }
     }
 
+    console.log("Word Array: " + resultArray);
     return resultArray;
 }
 
@@ -182,8 +196,53 @@ function getSecretWord(indexOfWord)
         resultArray.push(words[indexOfWord].charAt(i));
     }
 
+    console.log("Secret Word: " + resultArray);
     return resultArray;
 }
+
+
+//only want to display letter blocks for number of letters in secretWord
+function initializeCharacterElements(numOfLetters)
+{
+    // iterate througn characterElements and set default text
+    // in relation to the number of characters in secretWord
+    // uderscore should be in all elements up to length of secretWord
+    for(var i = 0; i < characterElements.length; i++)
+    {
+        if(i < numOfLetters)
+        {
+            characterElements[i].textContent = "_";
+        }
+        else
+        {
+            characterElements[i].textContent = "";
+        }
+    }
+}
+
+
+function hasSecretWordBeenFound()
+{
+    var correctGuessCount = 0;
+
+    for (var i = 0; i < characterElements.length; i++)
+    {
+        if(characterElements[i] != "")
+        {
+            correctGuessCount = 0;
+        }
+    }
+
+    if(correctGuessCount === secretWord.length)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 // function to log current state of game
 function logGameStats()
