@@ -91,7 +91,10 @@ document.onkeyup = function(event)
             if(hasSecretWordBeenFound())
             {
                 outputElement.textContent += " *** YOU FOUND THE SECRET WORD ***";
+                wins++;
                 // GET NEW SECRET WORD
+                // guessCount = 0;
+
             }
         }
 
@@ -219,7 +222,6 @@ function initializeCharacterElements(numOfLetters)
     }
 }
 
-
 function hasSecretWordBeenFound()
 {
     var correctGuessCount = 0;
@@ -234,8 +236,8 @@ function hasSecretWordBeenFound()
         }
     }
 
-    console.log("correctGuessCount: " + correctGuessCount);
-    console.log("secretWord.length: " + secretWord.length);
+    //console.log("correctGuessCount: " + correctGuessCount);
+    //console.log("secretWord.length: " + secretWord.length);
 
     if(correctGuessCount === secretWord.length)
     {
@@ -247,6 +249,21 @@ function hasSecretWordBeenFound()
     }
 }
 
+
+function startNextRound()
+{
+    // where is secretWord found in words array?
+
+    // if index+1 > words.length, secretWord is last in array, GAME OVER
+
+
+
+
+}
+
+function gameOver(){}
+
+function playAgain(){}
 
 // function to log current state of game
 function logGameStats()
