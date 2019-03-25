@@ -1,36 +1,99 @@
-
+// https://github.com/ryverine
 // number of times word was found before guesses run out
 var wins = 0;
-
-// number of attempts player has to find word
-// guessCount needs to at least match word length
-var guessCount = 0;
 
 // all the letters the player has tried
 // ignore a guess if letter is already in lettersUsed
 var lettersUsed = "";
 
-// the array of words
-// make function to load array in random order
-var words = []; // array to hold all words player will guess
+// initialize array of words 
+var words = buildWordArray();
 
 // find # of char in longest word, make array that size
-var characterElements = [];
+var characterElements = [
+    document.getElementById("charElement00"),
+    document.getElementById("charElement01"),
+    document.getElementById("charElement02"),
+    document.getElementById("charElement03"),
+    document.getElementById("charElement04"),
+    document.getElementById("charElement05"),
+    document.getElementById("charElement06"),
+    document.getElementById("charElement07"),
+    document.getElementById("charElement08"),
+    document.getElementById("charElement09")];
+
+var secretWord = getSecretWord(0);
+
+// number of attempts player has to find word
+// guessCount needs to at least match word length
+var guessCount = 0; //WHAT SHOULD BE THE MAX?
 
 // the key that the user pressed
 var userInput = "";
+
+var outputElement = document.getElementById("output");
+var guessListElement = document.getElementById("guessList");
+var numGuessesElement = document.getElementById("numGuesses");
+
+//testing function
+function run()
+{
+
+}
 
 // starts game
 document.onkeyup = function(event) 
 {
     userInput = event.key.toUpperCase();
+    lettersUsed.toUpperCase();
     // get user input, only want A-Z
-    var validInput = isValidInput(userInput);
+
+    if(isValidInput(userInput))
+    {
+        //test if letter has been used
+        var letterAlreadyUsed = false;
+
+        for (var i = 0; i < lettersUsed.length; i++)
+        {
+            if(userInput === lettersUsed.charAt(i))
+            {
+                letterAlreadyUsed = true;
+                console.log("Letter already used: " + userInput);
+                outputElement.textContent += " *** " + userInput + " has already been used.";
+                break;
+            }
+        }
+
+        if(!letterAlreadyUsed)
+        {
+            lettersUsed += userInput;
+            guessListElement.textContent += userInput + ", ";
+
+            guessCount++;
+            numGuessesElement.textContent = guessCount;
+
+
+            /*test the input against the secret word
+            for (var j = 0; j < secretWord.length; j++)
+            {
+                if(userInput === secretWord[j])
+                {
+                    // put userInput in element 
+                }
+            }*/
+        }
+
+    }
+    else
+    {
+        outputElement.textContent += " *** INPUT NOT ACCEPTED: " + userInput;
+    }
 }
 
 function isValidInput(theInput)
 {
     console.log("*** isValidInput("+theInput+") ***");
+
     theInput = theInput.toUpperCase();
 
     var valid = false;
@@ -61,12 +124,17 @@ function isValidInput(theInput)
     return valid;
 }
 
+
 // might need to scrap this:
 function buildWordArray()
 {
     console.log("*** buildWordArray() ***");
+
     // pre-defined values
-    var wordsToUse = [];
+    var wordsToUse = ["PEPSI",
+                        "COKE",
+                        "SPRITE",
+                        "CHEERWINE"];
 
     // must equal same length as wordsTo Use
     var resultArray = [];
@@ -78,24 +146,51 @@ function buildWordArray()
         console.log("wordsToUse[" + i + "]: " +  wordsToUse[i]);
 
         // get random number, between 0 and length
-        var rng = Math.floor(Math.random() * Math.floor(wordsToUse.length));
+        var randomNum = Math.floor(Math.random() * Math.floor(wordsToUse.length));
         
-        // get the word at that index of wordsTouse
-        // is that word already in resultArray?
-        // array.indexOf(item, start)
-        // if so: break and run loop again
-        // if not: resultArray.push(wordsToUse[random#])
-        // arrayIndex++;
+        var hasWordBeenUsed = false;
 
+        for (var i = 0; i < resultArray.length; i++)
+        {
+            if(resultArray[i] === wordsToUse[randomNum])
+            {
+                hasWordBeenUsed = true;
+            }
+        }
 
-
-        
-                // need to look at this math more...
-
+        if (!hasWordBeenUsed)
+        {
+            resultArray.push(wordsToUse[randomNum]);
+        }
     }
 
-    //return wordsToUse
+    return resultArray;
+}
+
+
+function getSecretWord(indexOfWord)
+{
+    console.log("*** getSecretWord("+indexOfWord+") ***");
+
+    var resultArray = [];
+
+    // go through characters of word
+    // add each character to resultArray
+
+    for(var i = 0; i < words[indexOfWord].length; i++)
+    {
+        resultArray.push(words[indexOfWord].charAt(i));
+    }
+
+    return resultArray;
+}
+
+// function to log current state of game
+function logGameStats()
+{
 
 }
  
+
+
 
