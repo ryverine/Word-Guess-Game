@@ -88,11 +88,10 @@ document.onkeyup = function(event)
                 }
             }
 
-            // compare characterElements to secretWord
-            // THIS IS NOT WORKING
             if(hasSecretWordBeenFound())
             {
-                outputElement += " *** YOU FOUND THE SECRET WORD ***"
+                outputElement.textContent += " *** YOU FOUND THE SECRET WORD ***";
+                // GET NEW SECRET WORD
             }
         }
 
@@ -225,13 +224,18 @@ function hasSecretWordBeenFound()
 {
     var correctGuessCount = 0;
 
+    //isValidInput(theInput)
+
     for (var i = 0; i < characterElements.length; i++)
     {
-        if(characterElements[i] != "")
+        if(isValidInput(characterElements[i].textContent))
         {
-            correctGuessCount = 0;
+            correctGuessCount++;
         }
     }
+
+    console.log("correctGuessCount: " + correctGuessCount);
+    console.log("secretWord.length: " + secretWord.length);
 
     if(correctGuessCount === secretWord.length)
     {
