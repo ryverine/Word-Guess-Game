@@ -69,15 +69,15 @@ This holds the value of the key that the player entered and is set in the onkeyu
 
 The DOM element that displays message text to the player.
 
-### guessListElement = document.getElementById("guessList");
+### guessListElement
 
 The DOM element that displays the list of previous guesses to the player. This is updated as lettersUsed is updated.
 
-### var numGuessesElement = document.getElementById("numGuesses");
+### var numGuessesElement
 
 The DOM element that displays the number of **incorrect guesses** the player has made. This is updated as guessCount is updated.
 
-### var numWinsElement = document.getElementById("numWins");
+### var numWinsElement
 
 The DOM element that displays the number of times the player found the secret word. This is updated as wins is updated.
 
