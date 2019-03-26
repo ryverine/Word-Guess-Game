@@ -23,21 +23,63 @@ Functionality based around [traditional Hangman rules.](https://www.wikihow.com/
 
 Description of variables used.
 
-### var gameOverFlag = false;
-### var wins = 0;
-### var guessCount = 0; //should only tally incorrect guesses
-### var guessMax = 8; // traditional hangman allows for 8 incorrect guesses
-### var lettersUsed = "";
-### var words = buildWordArray();
-### var characterElements
-### var secretWordTester = "";
-### var secretWord = getSecretWord(0);
-### var userInput = "";
-### var outputElement = document.getElementById("output");
-### var guessListElement = document.getElementById("guessList");
+### gameOverFlag
+
+Determines if the game has ended. Set to false on page load. 
+
+### wins
+
+The number of times the player completed the secret word. Set to 0 on page load.
+
+### guessCount
+
+The number of times the player made an incorrect guess about the characters of the secret word. Set to 0 on page load, and when a new secret word is selected.
+
+### guessMax
+
+The maximum number of **incorrect guesses** allowed. Set to 8 on page load. A correct guess will not increment guessCount.
+
+### lettersUsed
+
+This holds all the characters that the player has already used as guesses. Player input is compared to each character of this string to determine if that letter has already been used.
+..* If so, nothing happens.
+..* If not, the input is added to lettersUsed and then it is determined if this is a letter in the secret word.
+
+### words[]
+
+Words is a array of the secret words. The array is initalized by calling the buildWordArray() function.
+
+### characterElements[]
+
+This is an array that hold references to the DOM elements that display the letters of the secret word.
+
+### secretWordTester
+
+A string representation of the secret word. It is set to blank by default, but is updated whenever getSecretWord() is called
+
+### secretWord[]
+
+This is an array where each index holds a character of the secret word. We initalize and update secretWord[] by calling getSecretWord(). This must happen after words[] is created.
+
+### userInput
+
+This holds the value of the key that the player entered and is set in the onkeyup event. We immediately test the value of userInput with isValidInput() to insure that it is a alpha charater (A-Z).
+
+### outputElement 
+
+The DOM element that displays message text to the player.
+
+### guessListElement = document.getElementById("guessList");
+
+The DOM element that displays the list of previous guesses to the player. This is updated as lettersUsed is updated.
+
 ### var numGuessesElement = document.getElementById("numGuesses");
+
+The DOM element that displays the number of **incorrect guesses** the player has made. This is updated as guessCount is updated.
+
 ### var numWinsElement = document.getElementById("numWins");
 
+The DOM element that displays the number of times the player found the secret word. This is updated as wins is updated.
 
 ## Functions
 
