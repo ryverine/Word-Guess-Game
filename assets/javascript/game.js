@@ -292,20 +292,30 @@ function startNextRound()
 
     if (nextWordIndex > (words.length - 1))
     {
+
         gameOver();
+
+        //do i need revealSecretWord() here?
     }
     else
     {
-        alert("NEXT ROUND");
+        var keepPlaying = confirm("Continue to next word?");
 
-        guessCount = 0;
-        numGuessesElement.textContent = guessCount;
+        if(keepPlaying)
+        {
+            guessCount = 0;
+            numGuessesElement.textContent = guessCount;
 
-        lettersUsed = "";
-        guessListElement.textContent = "";
+            lettersUsed = "";
+            guessListElement.textContent = "";
 
-        secretWord = getSecretWord(nextWordIndex);
-        initializeCharacterElements(secretWord.length);
+            secretWord = getSecretWord(nextWordIndex);
+            initializeCharacterElements(secretWord.length);
+        }
+        else
+        {
+            gameOverFlag = true;
+        }
     }
 }
 

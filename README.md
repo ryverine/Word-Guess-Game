@@ -150,6 +150,8 @@ Once the player has cycled through all the values in words[] the game is over. W
 
 ### revealSecretWord()
 
+Used to display secret word if the player could not find it by the time guessCount meets guessMax.
+
 
 ### logGameStats()
 
