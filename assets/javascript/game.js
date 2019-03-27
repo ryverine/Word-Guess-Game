@@ -46,20 +46,19 @@ var numWinsElement = document.getElementById("numWins");
 
 logGameStats();
 
-//testing function
+
 function runTest()
 {
 
 }
 
-// starts game
+
 document.onkeyup = function(event) 
 {
     if (!gameOverFlag)
     {
         userInput = event.key.toUpperCase();
         lettersUsed.toUpperCase();
-        // get user input, only want A-Z
 
         if (isValidInput(userInput))
         {
@@ -79,9 +78,6 @@ document.onkeyup = function(event)
 
             if (!letterAlreadyUsed)
             {
-                lettersUsed += userInput;
-                guessListElement.textContent += userInput + ", ";
-
                 for (var j = 0; j < secretWord.length; j++)
                 {
                     if (userInput === secretWord[j])
@@ -96,6 +92,9 @@ document.onkeyup = function(event)
                 {
                     guessCount++;
                     numGuessesElement.textContent = guessCount;
+
+                    lettersUsed += userInput;
+                    guessListElement.textContent += userInput + ", ";
                 }
 
                 if (hasSecretWordBeenFound())
@@ -104,14 +103,19 @@ document.onkeyup = function(event)
                     wins++;
                     numWinsElement.textContent = wins;
 
-                    startNextRound();
+                    // wait one second and then call startNexRound()
+                    setTimeout(startNextRound,1000);
                 }
-                /*else
+                else
                 {
-                    // guessCount >= guessMax
-                    // show secretWord
-                    // startNexRound
-                }*/
+                    if(guessCount >= guessMax)
+                    {
+                        // show secretWord
+                        revealSecretWord();
+                        // wait one second and then call startNexRound()
+                        setTimeout(startNextRound,1000);
+                    }
+                }
             }
         }
         else
@@ -120,13 +124,13 @@ document.onkeyup = function(event)
         }
     }
 
-    logGameStats(); // take snap-shot of current game state
+    logGameStats();
 }
 
 
 function isValidInput(theInput)
 {
-    console.log("*** isValidInput("+theInput+") ***");
+    console.log("isValidInput("+theInput+")");
 
     theInput = theInput.toUpperCase();
 
@@ -150,23 +154,50 @@ function isValidInput(theInput)
 }
 
 
-// might need to scrap this:
 function buildWordArray()
 {
-    console.log("*** buildWordArray() ***");
+    console.log("buildWordArray()");
 
-    var wordsToUse = [  "PEPSI",
-                        "COKE",
-                        "SPRITE",
-                        "CHEERWINE"];
+    var wordsToUse = [  "MARIO",
+                        "PRINCESS",
+                        "PEACH",
+                        "TOAD",
+                        "LUIGI",
+                        "YOSHI",
+                        "BOWSER",
+                        "DAISY",
+                        "WARIO",
+                        "WALUIGI",
+                        "ROSALINA",
+                        "TOADETTE",
+                        "KAMEK",
+                        "BIRDO",
+                        "BOOMBOOM",
+                        "SHYGUY",
+                        "GOOMBA",
+                        "KOOPA",
+                        "BOBOMB",
+                        "BOO",
+                        "LARRY",
+                        "MORTON",
+                        "WENDY",
+                        "IGGY",
+                        "ROY",
+                        "LEMMY",
+                        "LUDWIG",
+                        "PAULINE",
+                        "DONKEYKONG",
+                        "DIDDYKONG"];
 
-    var resultArray = []; // must equal same length as wordsToUse
+    var resultArray = [];
 
     var arrayIndex = 0;
 
     while (wordsToUse.length != resultArray.length)
     {
         var randomNum = Math.floor(Math.random() * Math.floor(wordsToUse.length));
+        // this gives a number between 0 and (wordsToUse.length - 1)
+        // beacsue zero is included this will match the indexes of wordsToUse, not the number of elements
         
         var hasWordBeenUsed = false;
 
@@ -190,13 +221,10 @@ function buildWordArray()
 
 function getSecretWord(indexOfWord)
 {
-    console.log("*** getSecretWord("+indexOfWord+") ***");
+    console.log("getSecretWord("+indexOfWord+")");
 
     var resultArray = [];
     var theWord = "";
-
-    // go through characters of word
-    // add each character to resultArray
 
     for (var i = 0; i < words[indexOfWord].length; i++)
     {
@@ -207,21 +235,15 @@ function getSecretWord(indexOfWord)
 
     secretWordTester = theWord;
 
-    //guessMax = resultArray.length;
-
     return resultArray;
 }
 
 
 function initializeCharacterElements(numOfLetters)
 {
-    //only want to display letter blocks for number of letters in secretWord
 
-    console.log("*** initializeCharacterElements(" + numOfLetters + ") ***");
+    console.log("initializeCharacterElements(" + numOfLetters + ")");
 
-    // iterate througn characterElements and set default text
-    // in relation to the number of characters in secretWord
-    // uderscore should be in all elements up to length of secretWord
     for (var i = 0; i < characterElements.length; i++)
     {
         if (i < numOfLetters)
@@ -238,7 +260,7 @@ function initializeCharacterElements(numOfLetters)
 
 function hasSecretWordBeenFound()
 {
-    console.log("*** hasSecretWordBeenFound() ***");
+    console.log("hasSecretWordBeenFound()");
 
     var correctGuessCount = 0;
 
@@ -263,7 +285,7 @@ function hasSecretWordBeenFound()
 
 function startNextRound()
 {
-    console.log("*** startNextRound() ***");
+    console.log("startNextRound()");
 
     var nextWordIndex = words.indexOf(secretWordTester) + 1;
     console.log("nextWordIndex: " + nextWordIndex);
@@ -290,7 +312,7 @@ function startNextRound()
 
 function gameOver()
 {
-    console.log("*** gameOver() ***");
+    console.log("gameOver()");
 
     var playAgain = confirm("GAME OVER" + "\n" +
             "You found " + wins + " of " + words.length + " words!" + "\n" +
@@ -298,7 +320,6 @@ function gameOver()
 
     if (playAgain)
     {
-        //reset
         gameOverFlag = false;
 
         outputElement.textContent = "";
@@ -306,7 +327,6 @@ function gameOver()
         wins = 0;
         numWinsElement.textContent = wins;
 
-        //guessMax = 0;
         guessCount = 0;
         numGuessesElement.textContent = guessCount;
 
@@ -329,7 +349,15 @@ function gameOver()
 }
 
 
-// function to log current state of game
+function revealSecretWord()
+{
+    for (var i = 0; i < characterElements.length; i++)
+    {
+        characterElements[i].textContent = secretWord[i];
+    }
+}
+
+
 function logGameStats()
 {
     console.log("***** CURRENT GAME STATS *****");
