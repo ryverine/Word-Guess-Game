@@ -16,12 +16,12 @@ Functionality based around [traditional Hangman rules.](https://www.wikihow.com/
 4. Determine if that letter has already been used, if so do nothing.
 
 5. If Player input has not been used yet, compare letter to each character of secret word.
-..*If match is found letter appears in appropriate position on page.
-..*If match is not found guess count is incremented.
+ * If match is found letter appears in appropriate position on page.
+ * If match is not found guess count is incremented.
 
 6. Test to see if secret word has been found.
-..*If found: increment win count,  get next secret word, clear letter guess list, and set guess count to 0;
-..*If not found: test to see if player has used up all guesses (8), and if so start the next round with the next secret word. Otherwise, wait for next user input.
+ * If found: increment win count,  get next secret word, clear letter guess list, and set guess count to 0;
+ * If not found: test to see if player has used up all guesses (8), and if so start the next round with the next secret word. Otherwise, wait for next user input.
 
 
 ## Global Variables 
@@ -52,8 +52,10 @@ The maximum number of **incorrect guesses** allowed. Set to 8 on page load. A co
 ### lettersUsed : string
 
 This holds all the characters that the player has already used as guesses. Player input is compared to each character of this string to determine if that letter has already been used.
-..* If so, nothing happens.
-..* If not, the input is added to lettersUsed and then it is determined if this is a letter in the secret word.
+
+ * If so, nothing happens.
+
+ * If not, the input is added to lettersUsed and then it is determined if this is a letter in the secret word.
 
 
 ### words[] : string array
@@ -114,13 +116,20 @@ This function is empty. This was a utilily used to test functions and other code
 ### isValidInput(theInput)
 
 This function takes a string argument (the result of keyUp) and compares it to the predefined accpted input values (A - Z). A boolean value is returned.
-..* If a match is found in the acceptedInput array, return true.
-..* If a mathc is not found, return false.
+
+ * If a match is found in the acceptedInput array, return true.
+
+ * If a mathc is not found, return false.
 
 
 ### buildWordArray()
 
 This function was added to provide some replay value. Instead of hard coding an array of words to use as the secret word, this function puts the predefined words into an array at a random order and then returns that new array. Two consecutive games will most likey not have the same order of words.
+
+
+### buildWordArray(numOfElements)
+
+The diffrence between this function and buildWordArray() is that a larger pool of words is provided, and we randomly select words based on the value of numOfElements. This means that it is almost impossible two games to have the same list of words in the same order.
 
 
 ### getSecretWord(indexOfWord)
@@ -143,6 +152,11 @@ This function is used to test if all the characters of the secret word have been
 Once the current secret word is discovered (or number of guesses runs out) we use this function to move to the next secret word in the words[] array. First, we need to check to see if we are already on the last element of the words[] array, if so we call the gameOver() function. If there are more elements in the words[] array then we reset guessCount and lettersUsed. We set secretWord to the value of the next element in words[], and we reset the on page elements to reflect the number of characters in the new secret word.
 
 
+### addImgToPage(imgName)
+
+Once a word has been found we want to display an image of the character. Images are saved in character_bank directory under images directory. Function accepts string argument which is the name of the character as defined in the words[] array. Character image file names must match character name in words[] array.
+
+
 ### gameOver()
 
 Once the player has cycled through all the values in words[] the game is over. We show the player the number of words they found within the defined number of guesses, and we ask them if they want to play again. If not we set gameOverFlag to true so that nothing will happen on any further onKeyUp events. Otherwise, we reset the game.
@@ -158,13 +172,21 @@ Used to display secret word if the player could not find it by the time guessCou
 This simply prints the values of the global variables to the console. 
 
 
-## Things to Fix
+## Things To Do
 
-1. Remove good guesses from guess list.
+1. ~Remove good guesses from guess list.~
 
-2. problem where you guess the last letter and you get the "next round" message, but you don't see that final letter added to the page.
+2. ~Problem where you guess the last letter and you get the "next round" message, but you don't see that final letter added to the page.~
 
-3. move to the next word when # of guesses runs out.
+3. ~Move to the next word when # of guesses runs out.~
+
+4. Need to have character images set to equal width, and transparent backgrounds.
+
+5. Graphic design for index page.
+
+6. Special marking on character images for words that were not found?
+
+7. Need Mario font.
 
 
 

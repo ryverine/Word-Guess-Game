@@ -1,23 +1,16 @@
 // https://www.wikihow.com/Play-Hangman
 // https://github.com/ryverine
+// https://www.mariowiki.com/Super_Mario_Bros._3
+// https://www.mariowiki.com/Super_Mario_Bros._2
+// https://www.mariowiki.com/Paper_Mario:_The_Thousand-Year_Door
 
 var gameOverFlag = false;
-
-// number of times word was found before guesses run out
 var wins = 0;
-
-// number of attempts player has to find word
-var guessCount = 0; //should only tally incorrect guesses
-var guessMax = 8; // traditional hangman allows for 8 incorrect guesses
-
-// all the letters the player has tried
-// ignore a guess if letter is already in lettersUsed
+var guessCount = 0;
+var guessMax = 8;
 var lettersUsed = "";
+var words = buildWordArray(10);
 
-// initialize array of words 
-var words = buildWordArray();
-
-// find # of char in longest word, make array that size
 var characterElements = [   document.getElementById("charElement00"), 
                             document.getElementById("charElement01"), 
                             document.getElementById("charElement02"), 
@@ -30,15 +23,10 @@ var characterElements = [   document.getElementById("charElement00"),
                             document.getElementById("charElement09")];
 
 var secretWordTester = "";
-
 var secretWord = getSecretWord(0);
-
-//only want to display letter blocks for number of letters in secretWord
 initializeCharacterElements(secretWord.length);
 
-// the key that the user pressed
 var userInput = "";
-
 var outputElement = document.getElementById("output");
 var guessListElement = document.getElementById("guessList");
 var numGuessesElement = document.getElementById("numGuesses");
@@ -62,7 +50,6 @@ document.onkeyup = function(event)
 
         if (isValidInput(userInput))
         {
-            //test if letter has been used
             var letterAlreadyUsed = false;
             var letterIsInSecretWord = false;
 
@@ -71,7 +58,6 @@ document.onkeyup = function(event)
                 if (userInput === lettersUsed.charAt(i))
                 {
                     letterAlreadyUsed = true;
-                    outputElement.textContent += " *** " + userInput + " has already been used.";
                     break;
                 }
             }
@@ -99,9 +85,11 @@ document.onkeyup = function(event)
 
                 if (hasSecretWordBeenFound())
                 {
-                    outputElement.textContent += " *** YOU FOUND THE SECRET WORD ***";
+                    outputElement.textContent += " *** YOU FOUND " + secretWordTester + " ***";
                     wins++;
                     numWinsElement.textContent = wins;
+
+                    addImgToPage(secretWordTester);
 
                     // wait one second and then call startNexRound()
                     setTimeout(startNextRound,1000);
@@ -112,6 +100,7 @@ document.onkeyup = function(event)
                     {
                         // show secretWord
                         revealSecretWord();
+                        addImgToPage(secretWordTester);
                         // wait one second and then call startNexRound()
                         setTimeout(startNextRound,1000);
                     }
@@ -154,40 +143,49 @@ function isValidInput(theInput)
 }
 
 
+function buildWordArray(numOfElements)
+{
+    console.log("buildWordArray(" + numOfElements + ")");
+
+    var wordsToUse = [  "MARIO","PRINCESS","PEACH","TOAD","LUIGI","YOSHI","BOWSER","DAISY","WARIO","WALUIGI",
+                        "ROSALINA","TOADETTE","KAMEK","BIRDO","BOOMBOOM","SHYGUY","GOOMBA","KOOPA","BOBOMB","BOO",
+                        "LARRY","MORTON","WENDY","IGGY","ROY","LEMMY","LUDWIG","PAULINE","DONKEYKONG","DIDDYKONG",
+                        "GOOMBELLA","KOOPS","VIVIAN","BOBBERY","FLURRIE","MOWZ","BONETAIL","KAMMYKOOPA","GRODUS","MARILYN",
+                        "BELDAM","DARKBONES","CORTEZ","DOOPLISS","GRUBBA","RAWKHAWK","BLOOPER","HOOKTAIL","ANGRYSUN","BUZZYBEETLE",
+                        "CHAINCHOMP","CHEEPCHEEP","FIREBRO","FLAMECHOMP","FIRESNAKE","LAVALOTUS","MUNCHER","PARABEETLE","PARAGOOMBA","PTOOIE",
+                        "ROTODISC","SLEDGEBRO","SPIKE","SPINY","STRETCH","SUPERMARIO","TANOOKI","RACCOON","HOTFOOT","FIRESUIT",
+                        "FROGSUIT","KURIBO","HAMMERBRO","JELECTRO","STARMAN","HAMMERSUIT","MAGICWING","SUPERLEAF","MUSHROOM","COBRAT",
+                        "BEEZO","NINJI","HOOPSTER","PHANTO","TWEETER","MOUSER","TRYCLYDE","FRYGUY","BUSTER","BUZZY",
+                        "WART","CLAWGRIP","POKEY","PIDGIT","PANSER","OSTRO","SNIFIT","TROUTER","PORCUPO","FLURRY",
+                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO","PUNIO"];
+
+    var resultArray = [];
+
+    var arrayIndex = 0;
+
+    var wordStr = "";
+
+    for (var i = 0; i < numOfElements; i++)
+    {
+        var randomNum = Math.floor(Math.random() * Math.floor(wordsToUse.length));
+
+        if(!wordStr.includes(wordsToUse[randomNum] + ","))
+        {
+            wordStr += wordsToUse[randomNum] + ",";
+            resultArray.push(wordsToUse[randomNum]);
+        }
+    }
+
+    return resultArray;
+}
+
+/*
+//the old function
 function buildWordArray()
 {
     console.log("buildWordArray()");
 
-    var wordsToUse = [  "MARIO",
-                        "PRINCESS",
-                        "PEACH",
-                        "TOAD",
-                        "LUIGI",
-                        "YOSHI",
-                        "BOWSER",
-                        "DAISY",
-                        "WARIO",
-                        "WALUIGI",
-                        "ROSALINA",
-                        "TOADETTE",
-                        "KAMEK",
-                        "BIRDO",
-                        "BOOMBOOM",
-                        "SHYGUY",
-                        "GOOMBA",
-                        "KOOPA",
-                        "BOBOMB",
-                        "BOO",
-                        "LARRY",
-                        "MORTON",
-                        "WENDY",
-                        "IGGY",
-                        "ROY",
-                        "LEMMY",
-                        "LUDWIG",
-                        "PAULINE",
-                        "DONKEYKONG",
-                        "DIDDYKONG"];
+    var wordsToUse = ["MARIO","PRINCESS","PEACH","TOAD","LUIGI","YOSHI","BOWSER","DAISY","WARIO","WALUIGI"];
 
     var resultArray = [];
 
@@ -217,7 +215,7 @@ function buildWordArray()
 
     return resultArray;
 }
-
+*/
 
 function getSecretWord(indexOfWord)
 {
@@ -292,10 +290,7 @@ function startNextRound()
 
     if (nextWordIndex > (words.length - 1))
     {
-
         gameOver();
-
-        //do i need revealSecretWord() here?
     }
     else
     {
@@ -317,6 +312,14 @@ function startNextRound()
             gameOverFlag = true;
         }
     }
+}
+
+
+function addImgToPage(imgName)
+{
+    var divElement = document.createElement('div');
+    outputElement.innerHTML = "<img src='assets/images/character_bank/" + imgName + ".png'>";
+    outputElement.parentNode.insertBefore(divElement, outputElement);
 }
 
 
@@ -343,7 +346,7 @@ function gameOver()
         lettersUsed = "";
         guessListElement.textContent = "";
 
-        words = buildWordArray();
+        words = buildWordArray(10);
 
         secretWordTester = "";
         secretWord = getSecretWord(0);
