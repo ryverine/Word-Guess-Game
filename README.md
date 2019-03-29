@@ -72,10 +72,14 @@ This is an array that hold references to the DOM elements that display the lette
 
 A string representation of the secret word. It is set to blank by default, but is updated whenever getSecretWord() is called
 
+### secretWordTracker[] : character array
+
+Array that letters of the secret word are added to one at a time as they are guessed. This became neccessary when I started using images of letters to display the secret word, instead of text.
 
 ### secretWord[] : character array
 
 This is an array where each index holds a character of the secret word. We initalize and update secretWord[] by calling getSecretWord(). This must happen after words[] is created.
+
 
 
 ### userInput : string
@@ -187,6 +191,10 @@ This simply prints the values of the global variables to the console.
 6. Special marking on character images for words that were not found?
 
 7. Need Mario font.
+
+8. Resize all letter images to 50px wide.
+
+9. Resize or replace character images so that they are all 200px wide.
 
 
 

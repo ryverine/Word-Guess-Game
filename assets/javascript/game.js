@@ -1,8 +1,14 @@
+
 // https://www.wikihow.com/Play-Hangman
+
 // https://github.com/ryverine
+
 // https://www.mariowiki.com/Super_Mario_Bros._3
 // https://www.mariowiki.com/Super_Mario_Bros._2
 // https://www.mariowiki.com/Paper_Mario:_The_Thousand-Year_Door
+// https://mario.fandom.com/wiki/Category:Characters_in_Super_Mario_Odyssey
+
+// https://help.github.com/en/articles/basic-writing-and-formatting-syntax
 
 var gameOverFlag = false;
 var wins = 0;
@@ -23,6 +29,7 @@ var characterElements = [   document.getElementById("charElement00"),
                             document.getElementById("charElement09")];
 
 var secretWordTester = "";
+var secretWordTracker = [];
 var secretWord = getSecretWord(0);
 initializeCharacterElements(secretWord.length);
 
@@ -69,7 +76,12 @@ document.onkeyup = function(event)
                     if (userInput === secretWord[j])
                     {
                         characterElements[j].textContent = userInput;
+
+                        characterElements[j].innerHTML = "<img src='assets/images/icons/"+ secretWord[j] + ".png'>";
+
                         letterIsInSecretWord = true;
+
+                        secretWordTracker[j] = userInput.trim();
                     }
                 }
 
@@ -89,7 +101,7 @@ document.onkeyup = function(event)
                     wins++;
                     numWinsElement.textContent = wins;
 
-                    addImgToPage(secretWordTester);
+                    addCharacterToPage(secretWordTester);
 
                     // wait one second and then call startNexRound()
                     setTimeout(startNextRound,1000);
@@ -100,7 +112,7 @@ document.onkeyup = function(event)
                     {
                         // show secretWord
                         revealSecretWord();
-                        addImgToPage(secretWordTester);
+                        addCharacterToPage(secretWordTester);
                         // wait one second and then call startNexRound()
                         setTimeout(startNextRound,1000);
                     }
@@ -151,13 +163,15 @@ function buildWordArray(numOfElements)
                         "ROSALINA","TOADETTE","KAMEK","BIRDO","BOOMBOOM","SHYGUY","GOOMBA","KOOPA","BOBOMB","BOO",
                         "LARRY","MORTON","WENDY","IGGY","ROY","LEMMY","LUDWIG","PAULINE","DONKEYKONG","DIDDYKONG",
                         "GOOMBELLA","KOOPS","VIVIAN","BOBBERY","FLURRIE","MOWZ","BONETAIL","KAMMYKOOPA","GRODUS","MARILYN",
-                        "BELDAM","DARKBONES","CORTEZ","DOOPLISS","GRUBBA","RAWKHAWK","BLOOPER","HOOKTAIL","ANGRYSUN","BUZZYBEETLE",
+                        "BELDAM","DARKBONES","CORTEZ","DOOPLISS","GRUBBA","RAWKHAWK","BLOOPER","HOOKTAIL","ANGRYSUN","PUNIO",
                         "CHAINCHOMP","CHEEPCHEEP","FIREBRO","FLAMECHOMP","FIRESNAKE","LAVALOTUS","MUNCHER","PARABEETLE","PARAGOOMBA","PTOOIE",
                         "ROTODISC","SLEDGEBRO","SPIKE","SPINY","STRETCH","SUPERMARIO","TANOOKI","RACCOON","HOTFOOT","FIRESUIT",
                         "FROGSUIT","KURIBO","HAMMERBRO","JELECTRO","STARMAN","HAMMERSUIT","MAGICWING","SUPERLEAF","MUSHROOM","COBRAT",
                         "BEEZO","NINJI","HOOPSTER","PHANTO","TWEETER","MOUSER","TRYCLYDE","FRYGUY","BUSTER","BUZZY",
                         "WART","CLAWGRIP","POKEY","PIDGIT","PANSER","OSTRO","SNIFIT","TROUTER","PORCUPO","FLURRY",
-                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO","PUNIO"];
+                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO"];
+
+                        //"BUZZYBEETLE",
 
     var resultArray = [];
 
@@ -233,6 +247,11 @@ function getSecretWord(indexOfWord)
 
     secretWordTester = theWord;
 
+    for (var j = 0; j < secretWordTester.length; j++)
+    {
+        secretWordTracker.push("*");
+    }
+
     return resultArray;
 }
 
@@ -246,11 +265,13 @@ function initializeCharacterElements(numOfLetters)
     {
         if (i < numOfLetters)
         {
-            characterElements[i].textContent = "_";
+            //characterElements[i].textContent = "_";
+            characterElements[i].innerHTML = "<img src='assets/images/icons/QBLOCK.png'>";
         }
         else
         {
-            characterElements[i].textContent = "";
+            //characterElements[i].textContent = "";
+            characterElements[i].innerHTML = "";
         }
     }
 }
@@ -259,8 +280,9 @@ function initializeCharacterElements(numOfLetters)
 function hasSecretWordBeenFound()
 {
     console.log("hasSecretWordBeenFound()");
+    console.log("secretWordTracker: " + secretWordTracker);
 
-    var correctGuessCount = 0;
+    /*var correctGuessCount = 0;
 
     for (var i = 0; i < characterElements.length; i++)
     {
@@ -269,6 +291,26 @@ function hasSecretWordBeenFound()
             correctGuessCount++;
         }
     }
+
+    if (correctGuessCount === secretWord.length)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }*/
+
+    var correctGuessCount = 0;
+
+    for (var i = 0; i < secretWordTracker.length; i++)
+    {
+        if (isValidInput(secretWordTracker[i]))
+        {
+            correctGuessCount++;
+        }
+    }
+    
 
     if (correctGuessCount === secretWord.length)
     {
@@ -286,7 +328,8 @@ function startNextRound()
     console.log("startNextRound()");
 
     var nextWordIndex = words.indexOf(secretWordTester) + 1;
-    console.log("nextWordIndex: " + nextWordIndex);
+
+    //console.log("nextWordIndex: " + nextWordIndex);
 
     if (nextWordIndex > (words.length - 1))
     {
@@ -304,22 +347,29 @@ function startNextRound()
             lettersUsed = "";
             guessListElement.textContent = "";
 
+            secretWordTracker = [];
+
             secretWord = getSecretWord(nextWordIndex);
+
             initializeCharacterElements(secretWord.length);
         }
         else
         {
             gameOverFlag = true;
         }
+
+        logGameStats();
     }
 }
 
 
-function addImgToPage(imgName)
+function addCharacterToPage(imgName)
 {
-    var divElement = document.createElement('div');
-    outputElement.innerHTML = "<img src='assets/images/character_bank/" + imgName + ".png'>";
-    outputElement.parentNode.insertBefore(divElement, outputElement);
+    console.log("addCharacterToPage("+imgName+")");
+
+    var imgFilePath = "assets/images/character_bank/" + imgName + ".png";
+
+    $("#imageHolder").prepend($("<span>", {class: "imgSpan"}).append($("<img>", {src: imgFilePath})));
 }
 
 
@@ -337,6 +387,8 @@ function gameOver()
 
         outputElement.textContent = "";
 
+        imageHolder.innerHTML = "";
+
         wins = 0;
         numWinsElement.textContent = wins;
 
@@ -349,21 +401,24 @@ function gameOver()
         words = buildWordArray(10);
 
         secretWordTester = "";
+        secretWordTracker = [];
         secretWord = getSecretWord(0);
 
         initializeCharacterElements(secretWord.length);
-
-        logGameStats();
     }
     else
     {
         gameOverFlag = true;
     }
+
+    logGameStats();
 }
 
 
 function revealSecretWord()
 {
+    console.log("revealSecretWord()");
+
     for (var i = 0; i < characterElements.length; i++)
     {
         characterElements[i].textContent = secretWord[i];
@@ -395,6 +450,13 @@ function logGameStats()
     }
 
     console.log("secretWordTester: " + secretWordTester);
+
+    console.log("secretWordTracker: ");
+
+    for (var l = 0; l < secretWordTracker.length; l++)
+    {
+        console.log(l + ": " + secretWordTracker[l]);
+    }
 
     console.log("secretWord:");
 
