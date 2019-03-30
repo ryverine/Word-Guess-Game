@@ -22,33 +22,50 @@
 
             <div class="col-md-2"></div>
             <div class="col-xs-12 col-sm-12 col-md-8">
-                <div class="row"><h1>GAME GOES HERE</h1></div>
-                <div class="row"><h4>Press key to guess letter of word below:</h4></div>
-                <div class="row"><h5></h5></div>
-                <div class="row">
 
-                    <!-- Button for testing functions:
-                    <button type="button" class="btn btn-primary" onClick="runTest()">TEST</button> -->
+                <div class="row">
+                    <div class="col-xs-12 logoHolder">
+                        <img src="assets/images/supermario.png">
+                    </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-xs-12 logoHolder">
+                            <img src="assets/images/wordguess.png">
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <h3 class="rowCenter">Press key to guess letter of word below!</h3>
+                </div>
+
+                <!-- <div class="row">
+                    Button for testing functions:
+                    <button type="button" class="btn btn-primary" onClick="runTest()">TEST</button>
+                </div> -->
+
                 
-                </div>
 
                 <div class="row">
-                    <div class="col-xs-2" id="guessList">
-                        Letters Guessed: 
+                    <div class="col-xs-12">
+                        <h4>Wins:</h4> <span id="numWins"></span>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-2">
-                        Bad Guesses: <span id="numGuesses"></span>
+                    <div class="col-xs-12">
+                        <h4>Guesses:</h4> <span id="numGuesses"></span>
                     </div>
-                    <div class="col-xs-2">&nbsp&nbsp&nbsp&nbsp</div>
-                    <div class="col-xs-2">
-                        Wins: <span id="numWins"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Letters Guessed:</h4> <span id="guessList"></span>
                     </div>
                 </div>
 
                 <div class="row rowCenter">
+                    <span class="col-xs-1"></span>
                     <span class="col-xs-1 letterBlock" id="charElement00"></span>
                     <span class="col-xs-1 letterBlock" id="charElement01"></span>
                     <span class="col-xs-1 letterBlock" id="charElement02"></span>
@@ -59,6 +76,7 @@
                     <span class="col-xs-1 letterBlock" id="charElement07"></span>
                     <span class="col-xs-1 letterBlock" id="charElement08"></span>
                     <span class="col-xs-1 letterBlock" id="charElement09"></span>
+                    <span class="col-xs-1"></span>
                 </div>
 
                 <div class="row rowCenter">
@@ -66,15 +84,17 @@
 
                     </div>
                 </div>
+
             </div>
             <div class="col-md-2"></div>
         </div>
 
-        <div class="row">
+        <!--<div class="row">
             <div class="col-xs-12">
                 <h3>OUTPUT</h3>
             </div>
-        </div>
+        </div> -->
+        
         <div class="row">
             <div class="col-xs-12" id="output">
                 

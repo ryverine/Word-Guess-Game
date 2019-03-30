@@ -77,7 +77,7 @@ document.onkeyup = function(event)
                     {
                         characterElements[j].textContent = userInput;
 
-                        characterElements[j].innerHTML = "<img src='assets/images/icons/"+ secretWord[j] + ".png'>";
+                        characterElements[j].innerHTML = "<img src='assets/images/icons/big"+ secretWord[j] + ".png'>";
 
                         letterIsInSecretWord = true;
 
@@ -92,7 +92,10 @@ document.onkeyup = function(event)
                     numGuessesElement.textContent = guessCount;
 
                     lettersUsed += userInput;
-                    guessListElement.textContent += userInput + ", ";
+                    // guessListElement.textContent += userInput + ", ";
+
+                    guessListElement.innerHTML += "<img src='assets/images/icons/small"+ userInput + ".png'>";
+
                 }
 
                 if (hasSecretWordBeenFound())
@@ -265,13 +268,10 @@ function initializeCharacterElements(numOfLetters)
     {
         if (i < numOfLetters)
         {
-            //characterElements[i].textContent = "_";
             characterElements[i].innerHTML = "<img src='assets/images/icons/QBLOCK.png'>";
         }
         else
         {
-            //characterElements[i].textContent = "";
-            //characterElements[i].innerHTML = "";
             characterElements[i].innerHTML = "<img src='assets/images/icons/BRICK.png'>";
         }
     }
@@ -281,26 +281,7 @@ function initializeCharacterElements(numOfLetters)
 function hasSecretWordBeenFound()
 {
     console.log("hasSecretWordBeenFound()");
-    console.log("secretWordTracker: " + secretWordTracker);
-
-    /*var correctGuessCount = 0;
-
-    for (var i = 0; i < characterElements.length; i++)
-    {
-        if (isValidInput(characterElements[i].textContent))
-        {
-            correctGuessCount++;
-        }
-    }
-
-    if (correctGuessCount === secretWord.length)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }*/
+    //console.log("secretWordTracker: " + secretWordTracker);
 
     var correctGuessCount = 0;
 

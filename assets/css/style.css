@@ -15,7 +15,7 @@ body{
 
 
 div{
-    border: 1px solid darkblue;
+    /*border: 1px solid darkblue;*/
 }
 
 
@@ -29,19 +29,31 @@ div{
 .letterBlock{
     /*background: #777777;*/
     /*width: 10%;*/
-    /*padding: 2px;*/
+    padding: 2px;
     color: white;
     text-align: center;
     font-size: 20px;
     font-weight: bold;
+}
+
+.logoHolder{
+    margin: auto;
+    padding: 5px;
+}
+
+/*** ID ***/
+
+#imageHolder{
+    background: white;
+    min-height: 200px;
+    width: 100%;
+    padding: 10px;
+    border: 50px solid transparent;
+    -webkit-border-image: url(../images/marioBorder.png) 50 round; /* Safari 3.1-5 */
+-o-border-image: url(../images/marioBorder.png) 50 round; /* Opera 11-12.1 */
+border-image: url(../images/marioBorder.png) 50 round;
 
 }
 
-/*
-.imgSpan{
-	padding: 3px;
-	abackground: red;
-}*/
 
 
-/*** ID ***/

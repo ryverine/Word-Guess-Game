@@ -206,9 +206,9 @@ This simply prints the values of the global variables to the console.
 
 12. Use SMB3 ground sprites as footer?
 
-14. Find sprites to use as borders?
+13. Find sprites to use as borders?
 
-15. Add difficulty selector? Easy should be 10 of the most well know characters, and give more guesses. Normal will be the current game. For hard mode player has to find 25 words.
+14. Add difficulty selector? Easy should be 10 of the most well know characters, and give more guesses. Normal will be the current game. For hard mode player has to find 25 words.
 
 
 
