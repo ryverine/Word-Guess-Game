@@ -16,11 +16,15 @@ Functionality based around [traditional Hangman rules.](https://www.wikihow.com/
 4. Determine if that letter has already been used, if so do nothing.
 
 5. If Player input has not been used yet, compare letter to each character of secret word.
+
  * If match is found letter appears in appropriate position on page.
+
  * If match is not found guess count is incremented.
 
 6. Test to see if secret word has been found.
+
  * If found: increment win count,  get next secret word, clear letter guess list, and set guess count to 0;
+
  * If not found: test to see if player has used up all guesses (8), and if so start the next round with the next secret word. Otherwise, wait for next user input.
 
 
@@ -60,7 +64,7 @@ This holds all the characters that the player has already used as guesses. Playe
 
 ### words[] : string array
 
-Words is a array of the secret words. The array is initalized by calling the buildWordArray() function.
+Words is a array of the secret words. The array is initalized by calling the `buildWordArray()` function.
 
 
 ### characterElements[] : DOM element array
@@ -70,7 +74,7 @@ This is an array that hold references to the DOM elements that display the lette
 
 ### secretWordTester : string
 
-A string representation of the secret word. It is set to blank by default, but is updated whenever getSecretWord() is called
+A string representation of the secret word. It is set to blank by default, but is updated whenever `getSecretWord()` is called
 
 ### secretWordTracker[] : character array
 
@@ -78,13 +82,13 @@ Array that letters of the secret word are added to one at a time as they are gue
 
 ### secretWord[] : character array
 
-This is an array where each index holds a character of the secret word. We initalize and update secretWord[] by calling getSecretWord(). This must happen after words[] is created.
+This is an array where each index holds a character of the secret word. We initalize and update `secretWord[]` by calling `getSecretWord()`. This must happen after `words[]` is created.
 
 
 
 ### userInput : string
 
-This holds the value of the key that the player entered and is set in the onkeyup event. We immediately test the value of userInput with isValidInput() to insure that it is a alpha charater (A-Z).
+This holds the value of the key that the player entered and is set in the onkeyup event. We immediately test the value of userInput with `isValidInput()` to insure that it is a alpha charater (A-Z).
 
 
 ### outputElement : DOM element
@@ -119,7 +123,7 @@ This function is empty. This was a utilily used to test functions and other code
 
 ### isValidInput(theInput)
 
-This function takes a string argument (the result of keyUp) and compares it to the predefined accpted input values (A - Z). A boolean value is returned.
+This function takes a string argument (the result of `onKeyUp`) and compares it to the predefined accpted input values (A - Z). A boolean value is returned.
 
  * If a match is found in the acceptedInput array, return true.
 
@@ -133,42 +137,42 @@ This function was added to provide some replay value. Instead of hard coding an 
 
 ### buildWordArray(numOfElements)
 
-The diffrence between this function and buildWordArray() is that a larger pool of words is provided, and we randomly select words based on the value of numOfElements. This means that it is almost impossible two games to have the same list of words in the same order.
+The diffrence between this function and `buildWordArray()` is that a larger pool of words is provided, and we randomly select words based on the value of numOfElements. This means that it is almost impossible two games to have the same list of words in the same order.
 
 
 ### getSecretWord(indexOfWord)
 
-This function accepts a numeric argumant which relates to an index of the words[] array. The element at this specific index of the array is traversed letter by letter and added each letter is added to an individual index of a new array. At the same time, the secretWordTester variable is constructed as a string representation of the new array. The new array is then returned.
+This function accepts a numeric argumant which relates to an index of the `words[]` array. The element at this specific index of the array is traversed letter by letter and added each letter is added to an individual index of a new array. At the same time, the `secretWordTester` variable is constructed as a string representation of the new array. The new array is then returned.
 
 
 ### initializeCharacterElements(numOfLetters)
 
-This function takes in a numeric argument that relates to the number of characters in the secret word. For each letter in the secret word we dispaly an underscore character in the appropriate element of the characterElements[] array. For the rest of the element in the characterElements[] we set the text content to an empty space character. This shows the player the number of characters they need to guess for the specific secret word.
+This function takes in a numeric argument that relates to the number of characters in the secret word. For each letter in the secret word we dispaly an underscore character in the appropriate element of the `characterElements[]` array. For the rest of the element in the `characterElements[]` we set the text content to an empty space character. This shows the player the number of characters they need to guess for the specific secret word.
 
 
 ### hasSecretWordBeenFound()
 
-This function is used to test if all the characters of the secret word have been found. We go through each element of the characterElements[] array and test the text content via the isValidInput() function. Since only alpha characters are allowed when they are found we keep a tally. If that tally is equal to the number of elements in the secretWord[] array then we know all letters of the secret word have been found, and therefore the function returns true. Otherwise, false is returned.
+This function is used to test if all the characters of the secret word have been found. We go through each element of the `characterElements[]` array and test the text content via the `isValidInput()` function. Since only alpha characters are allowed when they are found we keep a tally. If that tally is equal to the number of elements in the `secretWord[]` array then we know all letters of the secret word have been found, and therefore the function returns true. Otherwise, false is returned.
 
 
 ### startNextRound()
 
-Once the current secret word is discovered (or number of guesses runs out) we use this function to move to the next secret word in the words[] array. First, we need to check to see if we are already on the last element of the words[] array, if so we call the gameOver() function. If there are more elements in the words[] array then we reset guessCount and lettersUsed. We set secretWord to the value of the next element in words[], and we reset the on page elements to reflect the number of characters in the new secret word.
+Once the current secret word is discovered (or number of guesses runs out) we use this function to move to the next secret word in the `words[]` array. First, we need to check to see if we are already on the last element of the `words[]` array, if so we call the `gameOver()` function. If there are more elements in the `words[]` array then we reset `guessCount` and `lettersUsed`. We set secretWord to the value of the next element in `words[]`, and we reset the on page elements to reflect the number of characters in the new secret word.
 
 
 ### addImgToPage(imgName)
 
-Once a word has been found we want to display an image of the character. Images are saved in character_bank directory under images directory. Function accepts string argument which is the name of the character as defined in the words[] array. Character image file names must match character name in words[] array.
+Once a word has been found we want to display an image of the character. Images are saved in `character_bank` directory under `images` directory. Function accepts string argument which is the name of the character as defined in the `words[]` array. Character image file names must match character name in `words[]` array.
 
 
 ### gameOver()
 
-Once the player has cycled through all the values in words[] the game is over. We show the player the number of words they found within the defined number of guesses, and we ask them if they want to play again. If not we set gameOverFlag to true so that nothing will happen on any further onKeyUp events. Otherwise, we reset the game.
+Once the player has cycled through all the values in `words[]` the game is over. We show the player the number of words they found within the defined number of guesses, and we ask them if they want to play again. If not we set `gameOverFlag` to `true` so that nothing will happen on any further `onKeyUp` events. Otherwise, we reset the game.
 
 
 ### revealSecretWord()
 
-Used to display secret word if the player could not find it by the time guessCount meets guessMax.
+Used to display secret word if the player could not find it by the time `guessCount` meets `guessMax`.
 
 
 ### logGameStats()
@@ -190,11 +194,19 @@ This simply prints the values of the global variables to the console.
 
 6. Special marking on character images for words that were not found?
 
-7. Need Mario font.
+7. ~Need Mario font.~
 
-8. Resize all letter images to 50px wide.
+8. ~Resize all letter images.~
 
-9. Resize or replace character images so that they are all 200px wide.
+9. Guess count should start at 8 and decrease to 0.
+
+10. Get game sounds for corrct guess, incorrect guess, word found, and word not found.
+
+11. Game music to play in background?
+
+12. Use SMB3 ground sprites as footer?
+
+14. Find sprites to use as borders?
 
 
 
