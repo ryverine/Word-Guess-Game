@@ -9,6 +9,11 @@ https://getbootstrap.com/docs/4.3/content/images/
 
 /*** ELEMENT ***/
 
+body{
+    background-image: url("../images/sky.png");
+}
+
+
 div{
     border: 1px solid darkblue;
 }
@@ -22,9 +27,9 @@ div{
 }
 
 .letterBlock{
-    background: #777777;
-    width: 10%;
-    padding: 2px;
+    /*background: #777777;*/
+    /*width: 10%;*/
+    /*padding: 2px;*/
     color: white;
     text-align: center;
     font-size: 20px;

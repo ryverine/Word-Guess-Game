@@ -249,7 +249,7 @@ function getSecretWord(indexOfWord)
 
     for (var j = 0; j < secretWordTester.length; j++)
     {
-        secretWordTracker.push("*");
+        secretWordTracker.push("[?]");
     }
 
     return resultArray;
@@ -271,7 +271,8 @@ function initializeCharacterElements(numOfLetters)
         else
         {
             //characterElements[i].textContent = "";
-            characterElements[i].innerHTML = "";
+            //characterElements[i].innerHTML = "";
+            characterElements[i].innerHTML = "<img src='assets/images/icons/BRICK.png'>";
         }
     }
 }
