@@ -100,7 +100,7 @@ document.onkeyup = function(event)
 
                 if (hasSecretWordBeenFound())
                 {
-                    outputElement.textContent += " *** YOU FOUND " + secretWordTester + " ***";
+                    outputElement.textContent += "** YOU FOUND " + secretWordTester + " **";
                     wins++;
                     numWinsElement.textContent = wins;
 
@@ -113,6 +113,7 @@ document.onkeyup = function(event)
                 {
                     if(guessCount >= guessMax)
                     {
+                        outputElement.textContent += "** YOU MISSED " + secretWordTester + " **";
                         // show secretWord
                         revealSecretWord();
                         addCharacterToPage(secretWordTester);
@@ -184,7 +185,8 @@ function buildWordArray(numOfElements)
                         "MOUSER","TRYCLYDE","FRYGUY","BUSTER","BUZZY",
                         "WART","CLAWGRIP","POKEY","PIDGIT","PANSER",
                         "OSTRO","SNIFIT","TROUTER","PORCUPO","FLURRY",
-                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO"];
+                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO",
+                        "CAPPY"];
 
     while(resultArray.length < numOfElements)
     { 
@@ -410,7 +412,7 @@ function revealSecretWord()
 {
     console.log("revealSecretWord()");
 
-    for (var i = 0; i < characterElements.length; i++)
+    for (var i = 0; i < secretWordTracker.length; i++)
     {
         //characterElements[i].textContent = secretWord[i];
         characterElements[i].innerHTML = "<img src='assets/images/icons/big"+ secretWord[i] + ".png'>";
