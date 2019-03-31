@@ -1,15 +1,4 @@
 
-// https://www.wikihow.com/Play-Hangman
-
-// https://github.com/ryverine
-
-// https://www.mariowiki.com/Super_Mario_Bros._3
-// https://www.mariowiki.com/Super_Mario_Bros._2
-// https://www.mariowiki.com/Paper_Mario:_The_Thousand-Year_Door
-// https://mario.fandom.com/wiki/Category:Characters_in_Super_Mario_Odyssey
-
-// https://help.github.com/en/articles/basic-writing-and-formatting-syntax
-
 var gameOverFlag = false;
 var wins = 0;
 var guessCount = 8;
@@ -97,14 +86,12 @@ document.onkeyup = function(event)
                     }
                 }
 
-                // only want to increment guessCount for incorrect guesses
                 if (!letterIsInSecretWord)
                 {
                     guessCount--;
                     numGuessesElement.textContent = guessCount;
 
                     lettersUsed += userInput;
-                    // guessListElement.textContent += userInput + ", ";
 
                     badGuessSound.play();
 
@@ -129,8 +116,9 @@ document.onkeyup = function(event)
                     if(guessCount === 0)
                     {
                         outputElement.textContent += "** YOU MISSED " + secretWordTester + " **";
-                        // show secretWord
+
                         revealSecretWord();
+
                         addCharacterToPage(secretWordTester);
                         
                         missedWordSound.play();
@@ -208,9 +196,6 @@ function buildWordArray(numOfElements)
 
     while(resultArray.length < numOfElements)
     { 
-        /* had a problem where resultArray could be shorter than numOfElements
-        I think this while-loop corrected that issue */
-
         var randomNum = Math.floor(Math.random() * Math.floor(wordsToUse.length));
 
         if(resultArray.indexOf(wordsToUse[randomNum]) === -1)
@@ -221,47 +206,6 @@ function buildWordArray(numOfElements)
 
     return resultArray;
 }
-
-
-
-
-/*
-//the old function
-function buildWordArray()
-{
-    console.log("buildWordArray()");
-
-    var wordsToUse = ["MARIO","PRINCESS","PEACH","TOAD","LUIGI","YOSHI","BOWSER","DAISY","WARIO","WALUIGI"];
-
-    var resultArray = [];
-
-    var arrayIndex = 0;
-
-    while (wordsToUse.length != resultArray.length)
-    {
-        var randomNum = Math.floor(Math.random() * Math.floor(wordsToUse.length));
-        // this gives a number between 0 and (wordsToUse.length - 1)
-        // beacsue zero is included this will match the indexes of wordsToUse, not the number of elements
-        
-        var hasWordBeenUsed = false;
-
-        for (var i = 0; i < resultArray.length; i++)
-        {
-            if (resultArray[i] === wordsToUse[randomNum])
-            {
-                hasWordBeenUsed = true;
-            }
-        }
-
-        if (!hasWordBeenUsed)
-        {
-            resultArray.push(wordsToUse[randomNum]);
-        }
-    }
-
-    return resultArray;
-}
-*/
 
 function getSecretWord(indexOfWord)
 {
@@ -300,7 +244,6 @@ function initializeCharacterElements(numOfLetters)
         }
         else
         {
-            //characterElements[i].innerHTML = "<img src='assets/images/icons/BRICK.png'>";
             characterElements[i].textContent = "";
         }
     }
@@ -310,8 +253,7 @@ function initializeCharacterElements(numOfLetters)
 function hasSecretWordBeenFound()
 {
     console.log("hasSecretWordBeenFound()");
-    //console.log("secretWordTracker: " + secretWordTracker);
-
+ 
     var correctGuessCount = 0;
 
     for (var i = 0; i < secretWordTracker.length; i++)
@@ -338,8 +280,6 @@ function startNextRound()
     console.log("startNextRound()");
 
     var nextWordIndex = words.indexOf(secretWordTester) + 1;
-
-    //console.log("nextWordIndex: " + nextWordIndex);
 
     if (nextWordIndex > (words.length - 1))
     {
@@ -431,7 +371,6 @@ function revealSecretWord()
 
     for (var i = 0; i < secretWordTracker.length; i++)
     {
-        //characterElements[i].textContent = secretWord[i];
         characterElements[i].innerHTML = "<img src='assets/images/icons/big" + secretWord[i] + ".png'>";
     }
 }

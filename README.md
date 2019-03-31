@@ -45,12 +45,11 @@ The number of times the player completed the secret word. Set to 0 on page load.
 
 ### guessCount : integer
 
-The number of times the player made an incorrect guess about the characters of the secret word. Set to 0 on page load, and when a new secret word is selected.
-
+The number of times the player made an incorrect guess about the characters of the secret word. Set to 8 on page load, and when a new secret word is selected. When `guessCount` reaches zero we pick the next secret word.
 
 ### guessMax : integer
 
-The maximum number of **incorrect guesses** allowed. Set to 8 on page load. A correct guess will not increment guessCount.
+The maximum number of **incorrect guesses** allowed. Set to 8 on page load. A correct guess will not increment guessCount. Note: no longer neccessary since we now count down to 0 for guesses.
 
 
 ### lettersUsed : string
@@ -84,32 +83,41 @@ Array that letters of the secret word are added to one at a time as they are gue
 
 This is an array where each index holds a character of the secret word. We initalize and update `secretWord[]` by calling `getSecretWord()`. This must happen after `words[]` is created.
 
-
-
 ### userInput : string
 
 This holds the value of the key that the player entered and is set in the onkeyup event. We immediately test the value of userInput with `isValidInput()` to insure that it is a alpha charater (A-Z).
-
 
 ### outputElement : DOM element
 
 The DOM element that displays message text to the player.
 
-
 ### guessListElement : DOM element
 
 The DOM element that displays the list of previous guesses to the player. This is updated as lettersUsed is updated.
-
 
 ### numGuessesElement : DOM element
 
 The DOM element that displays the number of **incorrect guesses** the player has made. This is updated as guessCount is updated.
 
-
 ### numWinsElement : DOM element
 
 The DOM element that displays the number of times the player found the secret word. This is updated as wins is updated.
 
+### goodGuessSound : Audio
+
+This is the coin sound from Super Mario Bros 3. The sound is played when a letter is correctly guessed by the player. I set the volume to lowest possible value to still be heard.
+
+### badGuessSound : Audio
+
+This is the bump sound from Super Mario Bros 3. The sound is played when a letter is incorrectly guessed by the player. I set the volume to lowest possible value to still be heard.
+
+### foundWordSound : Audio
+
+This is the level complete sound from Super Mario Bros 3. The sound is played when the secret word is found by the player. I set the volume to lowest possible value to still be heard.
+
+### missedWordSound : Audio
+
+This is the player death sound from Super Mario Bros 3. The sound is played when the player runs out of guesses. I set the volume to lowest possible value to still be heard.
 
 ## Functions
 
@@ -130,30 +138,25 @@ This function takes a string argument (the result of `onKeyUp`) and compares it 
  * If a mathc is not found, return false.
 
 
-### buildWordArray()
+### buildWordArray(numOfElements)
 
 This function was added to provide some replay value. Instead of hard coding an array of words to use as the secret word, this function puts the predefined words into an array at a random order and then returns that new array. Two consecutive games will most likey not have the same order of words.
 
+The diffrence between this function and the original `buildWordArray()` is that a larger pool of words is provided, and we randomly select words based on the value of numOfElements. This means that it is almost impossible for two games to have the same list of words in the same order.
 
-### buildWordArray(numOfElements)
-
-The diffrence between this function and `buildWordArray()` is that a larger pool of words is provided, and we randomly select words based on the value of numOfElements. This means that it is almost impossible two games to have the same list of words in the same order.
-
+A **for-loop** was used originally, but now we are using a **while-loop** to ensure that we always get an array of `numOfElements` length.
 
 ### getSecretWord(indexOfWord)
 
 This function accepts a numeric argumant which relates to an index of the `words[]` array. The element at this specific index of the array is traversed letter by letter and added each letter is added to an individual index of a new array. At the same time, the `secretWordTester` variable is constructed as a string representation of the new array. The new array is then returned.
 
-
 ### initializeCharacterElements(numOfLetters)
 
 This function takes in a numeric argument that relates to the number of characters in the secret word. For each letter in the secret word we dispaly an underscore character in the appropriate element of the `characterElements[]` array. For the rest of the element in the `characterElements[]` we set the text content to an empty space character. This shows the player the number of characters they need to guess for the specific secret word.
 
-
 ### hasSecretWordBeenFound()
 
 This function is used to test if all the characters of the secret word have been found. We go through each element of the `characterElements[]` array and test the text content via the `isValidInput()` function. Since only alpha characters are allowed when they are found we keep a tally. If that tally is equal to the number of elements in the `secretWord[]` array then we know all letters of the secret word have been found, and therefore the function returns true. Otherwise, false is returned.
-
 
 ### startNextRound()
 
@@ -172,7 +175,7 @@ Once the player has cycled through all the values in `words[]` the game is over.
 
 ### revealSecretWord()
 
-Used to display secret word if the player could not find it by the time `guessCount` meets `guessMax`.
+Used to display secret word if the player could not find it by the time `guessCount` reaches zero;
 
 
 ### logGameStats()
@@ -188,27 +191,29 @@ This simply prints the values of the global variables to the console.
 
 3. ~Move to the next word when # of guesses runs out.~
 
-4. Need to have character images set to equal width, and transparent backgrounds.
+4. ~Need to have character images set to equal width, and transparent backgrounds.~
 
-5. Graphic design for index page.
+5. ~Graphic design for index page.~
 
-6. Special marking on character images for words that were not found?
+6. Special marking on character images for words that were not found? Red border around image?
 
 7. ~Need Mario font.~
 
 8. ~Resize all letter images.~
 
-9. Guess count should start at 8 and decrease to 0.
+9. ~Guess count should start at 8 and decrease to 0.~
 
-10. Get game sounds for corrct guess, incorrect guess, word found, and word not found.
+10. ~Get game sounds for corrct guess, incorrect guess, word found, and word not found.~
 
 11. Game music to play in background?
 
 12. Use SMB3 ground sprites as footer?
 
-13. Find sprites to use as borders?
+13. ~Find sprites to use as border around character display area?~
 
 14. Add difficulty selector? Easy should be 10 of the most well know characters, and give more guesses. Normal will be the current game. For hard mode player has to find 25 words.
+
+15. Add credits/thanks to the people that ripped the sprties/font that I have used for this page.
 
 
 
