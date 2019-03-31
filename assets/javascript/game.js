@@ -12,8 +12,7 @@
 
 var gameOverFlag = false;
 var wins = 0;
-var guessCount = 0;
-var guessMax = 8;
+var guessCount = 8;
 var lettersUsed = "";
 var words = buildWordArray(10);
 
@@ -38,6 +37,9 @@ var outputElement = document.getElementById("output");
 var guessListElement = document.getElementById("guessList");
 var numGuessesElement = document.getElementById("numGuesses");
 var numWinsElement = document.getElementById("numWins");
+
+numWinsElement.textContent = 0;
+numGuessesElement.textContent = 8;
 
 logGameStats();
 
@@ -88,7 +90,7 @@ document.onkeyup = function(event)
                 // only want to increment guessCount for incorrect guesses
                 if (!letterIsInSecretWord)
                 {
-                    guessCount++;
+                    guessCount--;
                     numGuessesElement.textContent = guessCount;
 
                     lettersUsed += userInput;
@@ -111,7 +113,7 @@ document.onkeyup = function(event)
                 }
                 else
                 {
-                    if(guessCount >= guessMax)
+                    if(guessCount === 0)
                     {
                         outputElement.textContent += "** YOU MISSED " + secretWordTester + " **";
                         // show secretWord
@@ -303,7 +305,6 @@ function hasSecretWordBeenFound()
             correctGuessCount++;
         }
     }
-    
 
     if (correctGuessCount === secretWord.length)
     {
@@ -334,7 +335,7 @@ function startNextRound()
 
         if(keepPlaying)
         {
-            guessCount = 0;
+            guessCount = 8;
             numGuessesElement.textContent = guessCount;
 
             lettersUsed = "";
@@ -385,7 +386,7 @@ function gameOver()
         wins = 0;
         numWinsElement.textContent = wins;
 
-        guessCount = 0;
+        guessCount = 8;
         numGuessesElement.textContent = guessCount;
 
         lettersUsed = "";
@@ -415,7 +416,7 @@ function revealSecretWord()
     for (var i = 0; i < secretWordTracker.length; i++)
     {
         //characterElements[i].textContent = secretWord[i];
-        characterElements[i].innerHTML = "<img src='assets/images/icons/big"+ secretWord[i] + ".png'>";
+        characterElements[i].innerHTML = "<img src='assets/images/icons/big" + secretWord[i] + ".png'>";
     }
 }
 
@@ -431,8 +432,6 @@ function logGameStats()
     console.log("wins: " + wins);
 
     console.log("guessCount: " + guessCount);
-
-    console.log("guessMax: " + guessMax);
 
     console.log("lettersUsed: " + lettersUsed);
 

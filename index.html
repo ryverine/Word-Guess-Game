@@ -30,10 +30,10 @@
                 </div>
 
                 <div class="row">
-                        <div class="col-xs-12 logoHolder">
-                            <img src="assets/images/wordguess.png">
-                        </div>
+                    <div class="col-xs-12 logoHolder">
+                        <img src="assets/images/wordguess.png">
                     </div>
+                </div>
 
                 <div class="row">
                     <h3 class="rowCenter">Press key to guess letter of word below!</h3>
@@ -44,27 +44,23 @@
                     <button type="button" class="btn btn-primary" onClick="runTest()">TEST</button>
                 </div> -->
 
-                
-
                 <div class="row">
                     <div class="col-xs-12 verticalSpace">
-                        <h4>Wins:</h4> <span id="numWins"></span>
+                        <span class="counterLabel">Wins: </span> <span id="numWins"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-12 verticalSpace">
-                        <h4>Guesses:</h4> <span id="numGuesses"></span>
+                        <span class="counterLabel">Guesses: </span> <span id="numGuesses"></span>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-2 verticalSpace">
-                        <h4>Letters Guessed:</h4> 
+                    <div class="col-xs-2 verticalSpace counterLabel">
+                        Letters Guessed:
+                        <div id="guessList"></div>
                     </div>
-
-                    <div class="col-xs-10 verticalSpace" id="guessList"></div>
-
                 </div>
 
                 <div class="row verticalSpace">
