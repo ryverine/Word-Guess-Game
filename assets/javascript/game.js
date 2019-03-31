@@ -41,6 +41,20 @@ var numWinsElement = document.getElementById("numWins");
 numWinsElement.textContent = 0;
 numGuessesElement.textContent = 8;
 
+
+
+var goodGuessSound = new Audio("assets/audio/smb3_coin.wav");
+var badGuessSound = new Audio("assets/audio/smb3_bump.wav");
+var foundWordSound = new Audio("assets/audio/smb3_level_clear.wav");
+var missedWordSound = new Audio("assets/audio/smb3_player_down.wav");
+
+goodGuessSound.volume = 0.1;
+badGuessSound.volume = 0.1;
+foundWordSound.volume = 0.1;
+missedWordSound.volume = 0.1;
+
+
+
 logGameStats();
 
 
@@ -79,6 +93,8 @@ document.onkeyup = function(event)
                     {
                         characterElements[j].textContent = userInput;
 
+                        goodGuessSound.play();
+
                         characterElements[j].innerHTML = "<img src='assets/images/icons/big"+ secretWord[j] + ".png'>";
 
                         letterIsInSecretWord = true;
@@ -96,8 +112,9 @@ document.onkeyup = function(event)
                     lettersUsed += userInput;
                     // guessListElement.textContent += userInput + ", ";
 
-                    guessListElement.innerHTML += "<img class ='smallLetter' src='assets/images/icons/small"+ userInput + ".png'>";
+                    badGuessSound.play();
 
+                    guessListElement.innerHTML += "<img class ='smallLetter' src='assets/images/icons/small"+ userInput + ".png'>";
                 }
 
                 if (hasSecretWordBeenFound())
@@ -107,6 +124,8 @@ document.onkeyup = function(event)
                     numWinsElement.textContent = wins;
 
                     addCharacterToPage(secretWordTester);
+
+                    foundWordSound.play();
 
                     // wait one second and then call startNexRound()
                     setTimeout(startNextRound,1000);
@@ -119,6 +138,9 @@ document.onkeyup = function(event)
                         // show secretWord
                         revealSecretWord();
                         addCharacterToPage(secretWordTester);
+                        
+                        missedWordSound.play();
+
                         // wait one second and then call startNexRound()
                         setTimeout(startNextRound,1000);
                     }
