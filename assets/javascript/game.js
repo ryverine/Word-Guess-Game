@@ -94,7 +94,7 @@ document.onkeyup = function(event)
                     lettersUsed += userInput;
                     // guessListElement.textContent += userInput + ", ";
 
-                    guessListElement.innerHTML += "<img src='assets/images/icons/small"+ userInput + ".png'>";
+                    guessListElement.innerHTML += "<img class ='smallLetter' src='assets/images/icons/small"+ userInput + ".png'>";
 
                 }
 
@@ -124,7 +124,7 @@ document.onkeyup = function(event)
         }
         else
         {
-            outputElement.textContent += " *** INPUT NOT ACCEPTED: " + userInput;
+            cosole.log("Input Not Accepted: " + userInput);
         }
     }
 
@@ -162,39 +162,48 @@ function buildWordArray(numOfElements)
 {
     console.log("buildWordArray(" + numOfElements + ")");
 
-    var wordsToUse = [  "MARIO","PRINCESS","PEACH","TOAD","LUIGI","YOSHI","BOWSER","DAISY","WARIO","WALUIGI",
-                        "ROSALINA","TOADETTE","KAMEK","BIRDO","BOOMBOOM","SHYGUY","GOOMBA","KOOPA","BOBOMB","BOO",
-                        "LARRY","MORTON","WENDY","IGGY","ROY","LEMMY","LUDWIG","PAULINE","DONKEYKONG","DIDDYKONG",
-                        "GOOMBELLA","KOOPS","VIVIAN","BOBBERY","FLURRIE","MOWZ","BONETAIL","KAMMYKOOPA","GRODUS","MARILYN",
-                        "BELDAM","DARKBONES","CORTEZ","DOOPLISS","GRUBBA","RAWKHAWK","BLOOPER","HOOKTAIL","ANGRYSUN","PUNIO",
-                        "CHAINCHOMP","CHEEPCHEEP","FIREBRO","FLAMECHOMP","FIRESNAKE","LAVALOTUS","MUNCHER","PARABEETLE","PARAGOOMBA","PTOOIE",
-                        "ROTODISC","SLEDGEBRO","SPIKE","SPINY","STRETCH","SUPERMARIO","TANOOKI","RACCOON","HOTFOOT","FIRESUIT",
-                        "FROGSUIT","KURIBO","HAMMERBRO","JELECTRO","STARMAN","HAMMERSUIT","MAGICWING","SUPERLEAF","MUSHROOM","COBRAT",
-                        "BEEZO","NINJI","HOOPSTER","PHANTO","TWEETER","MOUSER","TRYCLYDE","FRYGUY","BUSTER","BUZZY",
-                        "WART","CLAWGRIP","POKEY","PIDGIT","PANSER","OSTRO","SNIFIT","TROUTER","PORCUPO","FLURRY",
-                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO"];
-
-                        //"BUZZYBEETLE",
-
     var resultArray = [];
 
-    var arrayIndex = 0;
+    var wordsToUse = [  "MARIO","PRINCESS","PEACH","TOAD","LUIGI",
+                        "YOSHI","BOWSER","DAISY","WARIO","WALUIGI",
+                        "ROSALINA","TOADETTE","KAMEK","BIRDO","BOOMBOOM",
+                        "SHYGUY","GOOMBA","KOOPA","BOBOMB","BOO",
+                        "LARRY","MORTON","WENDY","IGGY","ROY",
+                        "LEMMY","LUDWIG","PAULINE","DONKEYKONG","DIDDYKONG",
+                        "GOOMBELLA","KOOPS","VIVIAN","BOBBERY","FLURRIE",
+                        "MOWZ","BONETAIL","KAMMYKOOPA","GRODUS","MARILYN",
+                        "BELDAM","DARKBONES","CORTEZ","DOOPLISS","GRUBBA",
+                        "RAWKHAWK","BLOOPER","HOOKTAIL","ANGRYSUN","PUNIO",
+                        "CHAINCHOMP","CHEEPCHEEP","FIREBRO","FLAMECHOMP","FIRESNAKE",
+                        "LAVALOTUS","MUNCHER","PARABEETLE","PARAGOOMBA","PTOOIE",
+                        "ROTODISC","SLEDGEBRO","SPIKE","SPINY","STRETCH",
+                        "SUPERMARIO","TANOOKI","RACCOON","HOTFOOT","FIRESUIT",
+                        "FROGSUIT","KURIBO","HAMMERBRO","JELECTRO","STARMAN",
+                        "HAMMERSUIT","MAGICWING","SUPERLEAF","MUSHROOM","COBRAT",
+                        "BEEZO","NINJI","HOOPSTER","PHANTO","TWEETER",
+                        "MOUSER","TRYCLYDE","FRYGUY","BUSTER","BUZZY",
+                        "WART","CLAWGRIP","POKEY","PIDGIT","PANSER",
+                        "OSTRO","SNIFIT","TROUTER","PORCUPO","FLURRY",
+                        "ALBATOSS","PIRANHA","DANKEYKANG","BOWSETTE","KOOPIEKOO"];
 
-    var wordStr = "";
+    while(resultArray.length < numOfElements)
+    { 
+        /* had a problem where resultArray could be shorter than numOfElements
+        I think this while-loop corrected that issue */
 
-    for (var i = 0; i < numOfElements; i++)
-    {
         var randomNum = Math.floor(Math.random() * Math.floor(wordsToUse.length));
 
-        if(!wordStr.includes(wordsToUse[randomNum] + ","))
+        if(resultArray.indexOf(wordsToUse[randomNum]) === -1)
         {
-            wordStr += wordsToUse[randomNum] + ",";
             resultArray.push(wordsToUse[randomNum]);
         }
     }
 
     return resultArray;
 }
+
+
+
 
 /*
 //the old function
@@ -261,7 +270,6 @@ function getSecretWord(indexOfWord)
 
 function initializeCharacterElements(numOfLetters)
 {
-
     console.log("initializeCharacterElements(" + numOfLetters + ")");
 
     for (var i = 0; i < characterElements.length; i++)
@@ -272,7 +280,8 @@ function initializeCharacterElements(numOfLetters)
         }
         else
         {
-            characterElements[i].innerHTML = "<img src='assets/images/icons/BRICK.png'>";
+            //characterElements[i].innerHTML = "<img src='assets/images/icons/BRICK.png'>";
+            characterElements[i].textContent = "";
         }
     }
 }
@@ -403,7 +412,8 @@ function revealSecretWord()
 
     for (var i = 0; i < characterElements.length; i++)
     {
-        characterElements[i].textContent = secretWord[i];
+        //characterElements[i].textContent = secretWord[i];
+        characterElements[i].innerHTML = "<img src='assets/images/icons/big"+ secretWord[i] + ".png'>";
     }
 }
 

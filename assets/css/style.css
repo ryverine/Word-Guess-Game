@@ -41,6 +41,15 @@ div{
     padding: 5px;
 }
 
+.verticalSpace{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.smallLetter{
+    margin: 0px 2px 0px 2px;
+}
+
 /*** ID ***/
 
 #imageHolder{
@@ -54,6 +63,15 @@ div{
 border-image: url(../images/marioBorder.png) 50 round;
 
 }
+
+#output{
+    margin: 20px 0px 20px 0px;
+    font-weight: bold;
+}
+
+
+
+
 
 
 
