@@ -41,8 +41,6 @@ var numWinsElement = document.getElementById("numWins");
 numWinsElement.textContent = 0;
 numGuessesElement.textContent = 8;
 
-
-
 var goodGuessSound = new Audio("assets/audio/smb3_coin.wav");
 var badGuessSound = new Audio("assets/audio/smb3_bump.wav");
 var foundWordSound = new Audio("assets/audio/smb3_level_clear.wav");
@@ -53,16 +51,12 @@ badGuessSound.volume = 0.1;
 foundWordSound.volume = 0.1;
 missedWordSound.volume = 0.1;
 
-
-
 logGameStats();
-
 
 function runTest()
 {
 
 }
-
 
 document.onkeyup = function(event) 
 {
