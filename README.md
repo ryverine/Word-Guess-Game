@@ -1,6 +1,6 @@
-# The Word Guess Game
+# Super Mario Word Guess
 
-JavaScript "Hangman" style game.
+JavaScript "Hangman" style game with the wacky world of Super Mario as the theme.
 
 Functionality based around [traditional Hangman rules.](https://www.wikihow.com/Play-Hangman)
 
