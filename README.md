@@ -1,3 +1,5 @@
+![logo](/Documentation/logo.png)
+
 # Super Mario Word Guess
 
 [Deployed app](https://ryverine.github.io/Word-Guess-Game/)
