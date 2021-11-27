@@ -1,9 +1,12 @@
-# The Word Guess Game
+# Super Mario Word Guess
 
-JavaScript "Hangman" style game.
+[Deployed app](https://ryverine.github.io/Word-Guess-Game/)
+
+JavaScript "Hangman" style game with the wacky world of Super Mario as the theme. 
+
+Player tries to guess the word by pressing alpha (A-Z) keys before their number of guesses runs out.
 
 Functionality based around [traditional Hangman rules.](https://www.wikihow.com/Play-Hangman)
-
 
 ## Game Events
 
@@ -23,7 +26,7 @@ Functionality based around [traditional Hangman rules.](https://www.wikihow.com/
 
 6. Test to see if secret word has been found.
 
- * If found: increment win count,  get next secret word, clear letter guess list, and set guess count to 0;
+ * If found: increment win count, show image of related Super Mario character, get next secret word, clear letter guess list, and set guess count to 0;
 
  * If not found: test to see if player has used up all guesses (8), and if so start the next round with the next secret word. Otherwise, wait for next user input.
 
