@@ -85,7 +85,7 @@ This is an array where each index holds a character of the secret word. We inita
 
 ### userInput : string
 
-This holds the value of the key that the player entered and is set in the onkeyup event. We immediately test the value of userInput with `isValidInput()` to insure that it is a alpha charater (A-Z).
+This holds the value of the key that the player entered and is set in the `onkeyup` event. We immediately test the value of userInput with `isValidInput()` to insure that it is a alpha charater (A-Z).
 
 ### outputElement : DOM element
 
@@ -142,7 +142,7 @@ This function takes a string argument (the result of `onKeyUp`) and compares it 
 
 This function was added to provide some replay value. Instead of hard coding an array of words to use as the secret word, this function puts the predefined words into an array at a random order and then returns that new array. Two consecutive games will most likey not have the same order of words.
 
-The diffrence between this function and the original `buildWordArray()` is that a larger pool of words is provided, and we randomly select words based on the value of numOfElements. This means that it is almost impossible for two games to have the same list of words in the same order.
+The diffrence between this function and the original `buildWordArray()` is that a larger pool of words is provided, and we randomly select words based on the value of `numOfElements`. This means that it is almost impossible for two games to have the same list of words in the same order.
 
 A **for-loop** was used originally, but now we are using a **while-loop** to ensure that we always get an array of `numOfElements` length.
 
@@ -205,7 +205,7 @@ This simply prints the values of the global variables to the console.
 
 10. ~Get game sounds for corrct guess, incorrect guess, word found, and word not found.~
 
-11. Game music to play in background?
+11. Game music to play in background? Get various Mario theme music and play a diifferent in background for each game. Need to have seemless loops. Also, would we need to pause music while other sounds play? 
 
 12. Use SMB3 ground sprites as footer?
 
@@ -214,6 +214,20 @@ This simply prints the values of the global variables to the console.
 14. Add difficulty selector? Easy should be 10 of the most well know characters, and give more guesses. Normal will be the current game. For hard mode player has to find 25 words.
 
 15. Add credits/thanks to the people that ripped the sprties/font that I have used for this page.
+
+16. Add header row for spacing above page logo.
+
+17. Add characters from newer Mario games (i.e galaxy, odyssey). Add more meme/joke images.
+
+18. Find a way to allow for more characters in secret word.
+
+19. Border of character display area should not be set as transparent, it should match the syk color. I think this is why we can see little squares of white between the blocks on the outsize edge.
+
+20. Count the total number of consecutive games played. Tally number of all secret words found across all games. Show words found compared to total words provided (#games * 10), and then calculate a win percentage.
+
+21. When `gameOverFlag` is `true`, display game over message on page. 
+
+
 
 
 
